@@ -1,0 +1,29 @@
+<h1>Task</h1>
+
+<%= form_with(url: tasks_path, scope: :task, local: true) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :status  %>  
+  <%= f.select :status, ['backlog', 'progress', 'done'] %>  
+
+  <%= f.label :deadline  %> 
+  <%= f.datetime_select :deadline , ampm: true , :class => "form-control"%> 
+
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+
+  <ul>
+    <% current_user.tasks.each do |task| %>
+      <li><h3><%= task.title %></h3></li> 
+      <p> <%= task.status.capitalize %></p> 
+      <p><%= task.deadline.strftime("%B %d, %Y") %></p>
+   
+      Posted: <%= time_ago_in_words(task.updated_at) %> ago.
+      <% if current_user?(task.user) %>
+        <%= link_to "Update", edit_task_path(task) %>
+      <% end %>
+      </li>
+    <% end %>
+  </ul>

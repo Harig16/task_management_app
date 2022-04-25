@@ -1,0 +1,13 @@
+<%= form_with(model: @task,  local: true) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :status  %>  
+  <%= f.select :status, ['backlog', 'progress', 'done'] %>  
+
+  <%= f.label :deadline  %> 
+  <%= f.datetime_select :deadline , ampm: true , :class => "form-control"%> 
+   
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
